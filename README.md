@@ -1,4 +1,4 @@
-# Node.js SQLite RESTful API
+# Node.js SQLite RESTFUL API
 
 This project implements a RESTful API using SQLite as the database, Prisma as the ORM, Node.js, TypeScript, and Express for server-side development.
 
@@ -14,9 +14,9 @@ This project implements a RESTful API using SQLite as the database, Prisma as th
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/Ricwolf19/API-Rest-Nodejs-Prisma.git
-    ```
+```bash
+git clone https://github.com/Ricwolf19/API-Rest-Nodejs-Prisma.git
+```
 
 ### Install dependencies:
 
