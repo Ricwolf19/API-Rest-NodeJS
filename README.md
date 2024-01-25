@@ -15,8 +15,8 @@ This project implements a RESTful API using SQLite as the database, Prisma as th
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/node-sqlite-prisma-api.git
-    ``
+   git clone https://github.com/Ricwolf19/API-Rest-Nodejs-Prisma.git
+    ```
 
 ### Install dependencies:
 
