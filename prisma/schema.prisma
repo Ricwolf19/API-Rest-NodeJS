@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Technologies {
+  id Int @id @default(autoincrement()) //AutoIncrementa
+  creator String @unique 
+  launch_date DateTime @default(now()) 
+  type String
+  objective String @unique
+  price Int @default(0)
+  //Relacion para tabla categorias, se pone una @relacion despues a que campo se conecta y que se tiene como referencia que es el id de la otra tabla
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @unique
+  technolgies Technologies[]
+}
