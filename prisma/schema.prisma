@@ -12,9 +12,9 @@ datasource db {
 
 model Technologies {
   id Int @id @default(autoincrement()) //AutoIncrementa
+  name String @unique 
   creator String @unique 
   launch_date DateTime @default(now()) 
-  type String
   objective String @unique
   price Int @default(0)
   //Relacion para tabla categorias, se pone una @relacion despues a que campo se conecta y que se tiene como referencia que es el id de la otra tabla

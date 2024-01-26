@@ -11,4 +11,4 @@ app.use(express.json()) //MiddleWare
 app.use('/api', techRoutes);
 app.use('/api', catRoutes);
 
-console.log(`Server is on port ${3000}`)
+console.log(`Server is on port ${3000}`)       
