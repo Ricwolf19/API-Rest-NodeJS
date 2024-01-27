@@ -1,8 +1,18 @@
 import express from 'express'
 import techRoutes from './routes/technologies.routes' //Todos los que son modulos de terceros pide node poner extension .js (USANDO TYPESCRIPT TIRA ERROR)
 import catRoutes from './routes/categories.routes' //Tambien se debe de quitar el "type": "module", del package.json ya que TSC tiene su propio compilador 
+import cors from 'cors'
+
 
 const app = express()
+
+app.use(cors()) //Se usa cors
+
+const optionsCors = {      
+    origin: '*', //Permite el acceso desde cualquier origen
+    methods: 'GET'
+}
+
 app.listen(3000)
 
 //Como queremos mandar los datos en json invocamos al metodo de express .json para enviar y recibir datos
