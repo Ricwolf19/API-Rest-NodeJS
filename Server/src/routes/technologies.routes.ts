@@ -1,7 +1,7 @@
 //Importando este metodo podremos utilizar los metodos post, put, delete ETC......
 import { Router } from "express";
 import { prisma } from "../db"; 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express"; //Se importan los type correctos en typescript para usarlo en express
 // import { authorize } from "../index" //importamos la funcion que nos da la autorizacion (Ver por que no se puede importar desde otro archivo)
 
 const router = Router()

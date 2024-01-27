@@ -14,7 +14,7 @@ const optionsCors = {
 }
 
 //Como queremos mandar los datos en json invocamos al metodo de express .json para enviar y recibir datos
-//app.use(express.json()) //MiddleWare
+app.use(express.json()) //MiddleWare
 
 app.use(cors(optionsCors))
 
