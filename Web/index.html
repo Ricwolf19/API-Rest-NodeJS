@@ -11,15 +11,17 @@
     
     <div id="tableTech"></div>
 
-    <div id="updateForm">
-      <input type="text" id="updateName" placeholder="Nombre">
-      <input type="text" id="updateCreator" placeholder="Creator">
-      <!-- <input type="text" id="updateLaunchDate" placeholder="Launch date"> !-->
-      <input type="text" id="updateObjective" placeholder="Objective">
-      <input type="text" id="updatePrice" placeholder="Price">
-      <input type="text" id="updateCategory" placeholder="Category">
+    <div id="form">
+      <input type="text" id="name" placeholder="Name">
+      <input type="text" id="creator" placeholder="Creator">
+      <input type="date" id="launchDate" placeholder="Launch date">
+      <input type="text" id="objective" placeholder="Objective">
+      <input type="text" id="price" placeholder="Price">
+      <input type="text" id="category" placeholder="Category">
     </div>
 
+    <button onclick="postData()">Create</button>
+    
     <script src="./src/main.ts"></script>
 </body>
 </html>

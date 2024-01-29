@@ -47,17 +47,22 @@ async function delData(id: number) {
 async function updateData(id: number) {
     try {
         // Obtener los valores del formulario de actualización
-        const updateName = document.getElementById('updateName') as HTMLInputElement;
-        const updateCreator = document.getElementById('updateCreator') as HTMLInputElement;
-        // const updateLaunchDate = document.getElementById('updateLaunchDate') as HTMLInputElement;
-        const updateObjective = document.getElementById('updateObjective') as HTMLInputElement;
-        
-        const updatePrice = document.getElementById('updatePrice') as HTMLInputElement;
+        const updateName = document.getElementById('name') as HTMLInputElement;
+        const updateCreator = document.getElementById('creator') as HTMLInputElement;
+        const updateLaunchDate = document.getElementById('launchDate') as HTMLInputElement;
+        const updateObjective = document.getElementById('objective') as HTMLInputElement;
+
+        //Obtener el precio y convertirlo a entero junto con la validacion numerica
+        const updatePrice = document.getElementById('price') as HTMLInputElement;
         const priceValue = parseInt(updatePrice.value, 10);
         const isValidPrice = !isNaN(priceValue);
 
+        //Se formatea a formato ISO para poder guardar la fecha del input en la base de datos
+        const launchDateValue = updateLaunchDate.value;
+        const isoFormattedDate = new Date(launchDateValue).toISOString();
 
-        const updateCategory = document.getElementById('updateCategory') as HTMLInputElement;
+        //Obtener el ID de su categoria y convertirlo a entero junto con la validacion numerica
+        const updateCategory = document.getElementById('category') as HTMLInputElement;
         const categoryValue = parseInt(updateCategory.value, 10)
         const isValidCategory = !isNaN(categoryValue)
 
@@ -65,11 +70,10 @@ async function updateData(id: number) {
         const updatedData = {
             name: updateName.value,
             creator: updateCreator.value,
-           // launch_date: updateLaunchDate.value,
+            launch_date: isoFormattedDate,
             objective: updateObjective.value,
-            //price: updatePrice.value,
-            price: isValidPrice ? priceValue : 0, 
-            categoryId: isValidCategory ? categoryValue: 0,
+            price: isValidPrice ? priceValue : 0,
+            categoryId: isValidCategory ? categoryValue : 0,
         };
 
         // Realizar la solicitud PUT al servidor
@@ -79,7 +83,7 @@ async function updateData(id: number) {
                 'Content-Type': 'application/json',
                 'Authorize': token
             },
-            body: JSON.stringify(updatedData),
+            body: JSON.stringify(updatedData), //Se convierte a formato JSON el objeto con el contenido de los inputs y se devuelve a la base de datos
         });
 
         if (!response.ok) {
@@ -87,12 +91,18 @@ async function updateData(id: number) {
         }
 
         // Ocultar el formulario de actualización después de una actualización exitosa
-        const updateForm = document.getElementById('updateForm');
+        const updateForm = document.getElementById('form');
         if (updateForm) {
-            updateForm.style.display = 'none';
+
+            // Limpiar el contenido de los campos de entrada
+            updateName.value = "";
+            updateCreator.value = "";
+            updateLaunchDate.value = "";
+            updateObjective.value = "";
+            updatePrice.value = "";
+            updateCategory.value = "";
         }
 
-        // Actualizar la vista
         getData();
     } catch (error) {
         console.error(`Error: ${error}`);
@@ -100,24 +110,68 @@ async function updateData(id: number) {
 }
 
 
-
 //METHOD POST
 async function postData() {
     try {
-        const response = await fetch(url, {
+        // Obtener los valores del formulario de actualización
+        const postName = document.getElementById('name') as HTMLInputElement;
+        const postCreator = document.getElementById('creator') as HTMLInputElement;
+        const postLaunchDate = document.getElementById('launchDate') as HTMLInputElement;
+        const postObjective = document.getElementById('objective') as HTMLInputElement;
+
+        //Obtener el precio y convertirlo a entero junto con la validacion numerica
+        const postPrice = document.getElementById('price') as HTMLInputElement;
+        const priceValue = parseInt(postPrice.value, 10);
+        const isValidPrice = !isNaN(priceValue);
+
+        //Se formatea a formato ISO para poder guardar la fecha del input en la base de datos
+        const launchDateValue = postLaunchDate.value;
+        const isoFormattedDate = new Date(launchDateValue).toISOString();
+
+        //Obtener el ID de su categoria y convertirlo a entero junto con la validacion numerica
+        const postCategory = document.getElementById('category') as HTMLInputElement;
+        const categoryValue = parseInt(postCategory.value, 10)
+        const isValidCategory = !isNaN(categoryValue)
+
+        // Construir el objeto con los datos actualizados
+        const postData = {
+            name: postName.value,
+            creator: postCreator.value,
+            launch_date: isoFormattedDate,
+            objective: postObjective.value,
+            price: isValidPrice ? priceValue : 0,
+            categoryId: isValidCategory ? categoryValue : 0,
+        };
+
+        // Realizar la solicitud POST al servidor
+        const response = await fetch(`${url}`, {
             method: 'POST',
-            headers:
-            {
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorize': token
-            }
+            },
+            body: JSON.stringify(postData), //Se convierte a formato JSON el objeto con el contenido de los inputs y se devuelve a la base de datos
         });
+
         if (!response.ok) {
-            throw new Error("POST NOT SUCCESSFULL");
+            throw new Error("POST NOT SUCCESSFUL");
         }
-        getData() //Traemos la funcion get para que actualize automaticamente la tabla con los datos
+
+        const updateForm = document.getElementById('form');
+        if (updateForm) {
+
+            // Limpiar el contenido de los campos de entrada
+            postName.value = "";
+            postCreator.value = "";
+            postLaunchDate.value = "";
+            postObjective.value = "";
+            postPrice.value = "";
+            postCategory.value = "";
+        }
+
+        getData();
     } catch (error) {
-        console.error(`Error: ${error}`)
+        console.error(`Error: ${error}`);
     }
 }
 
@@ -145,7 +199,6 @@ function showTechnologies(datas: any[]) {
           <td>
             <button onclick="delData(${data.id})">delete</button>
             <button onclick="updateData(${data.id})">update</button>
-            <button onclick="watchData(${data.id})">watch</button>
           </td>
         </tr>`
     ).join('')}
